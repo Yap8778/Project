@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Credit Card Validator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="matrix-bg">
+        <div class="container">
+            <h1>Credit Card Validator</h1>
+            <div class="card-container">
+                <div class="card-form">
+                    <div class="tabs">
+                        <button class="tab-btn active" id="manual-tab">Manual Input</button>
+                        <button class="tab-btn" id="image-tab">Image Upload</button>
+                    </div>
+                    
+                    <div class="tab-content" id="manual-content">
+                        <form id="manual-form">
+                            <div class="form-group">
+                                <label for="card-number">Credit Card Number</label>
+                                <input type="text" id="card-number" placeholder="XXXX/XXXX/XXXX/XXXX" maxlength="19">
+                                <p class="instruction">*Slashes will be added automatically after every four digits</p>
+                            </div>
+                            <button type="submit" class="validate-btn">Validate</button>
+                        </form>
+                    </div>
+                    
+                    <div class="tab-content hidden" id="image-content">
+                        <form id="image-form">
+                            <div class="form-group">
+                                <label for="card-image">Upload Card Image</label>
+                                <div class="file-upload">
+                                    <input type="file" id="card-image" accept="image/*">
+                                    <div class="upload-area" id="upload-area">
+                                        <div class="upload-icon">+</div>
+                                        <p>Drag & Drop or Click to Upload</p>
+                                    </div>
+                                </div>
+                                <div id="preview-container" class="hidden">
+                                    <img id="image-preview" src="" alt="Card preview">
+                                    <button type="button" id="remove-image">Remove</button>
+                                </div>
+                            </div>
+                            <button type="submit" class="validate-btn">Validate</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="result-container hidden" id="result-container">
+                    <div class="result-header">
+                        <h2>Validation Result</h2>
+                        <button id="close-result">×</button>
+                    </div>
+                    <div class="result-content">
+                        <div id="valid-status" class="status-box">
+                            <p>Card Status: <span id="status-text"></span></p>
+                        </div>
+                        <div id="card-type" class="card-type-box">
+                            <p>Card Type:</p>
+                            <div class="card-type-content">
+                                <img id="card-type-img" src="" alt="">
+                                <span id="card-type-text"></span>
+                            </div>
+                        </div>
+                        <p id="card-number-display"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
