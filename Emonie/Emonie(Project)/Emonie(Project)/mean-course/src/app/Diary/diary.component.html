@@ -1,0 +1,96 @@
+<div class="container mt-4">
+  <h2>{{ isEditing ? 'Edit Diary Entry' : 'New Diary Entry' }}</h2>
+  
+  <form [formGroup]="diaryForm" (ngSubmit)="onSubmit()" class="mb-4">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input type="date" class="form-control" id="date" formControlName="date">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="mood">Mood</label>
+          <select class="form-control" id="mood" formControlName="mood">
+            <option value="">Select mood</option>
+            <option value="Happy">Happy</option>
+            <option value="Sad">Sad</option>
+            <option value="Angry">Angry</option>
+            <option value="Anxious">Anxious</option>
+            <option value="Calm">Calm</option>
+            <option value="Tired">Tired</option>
+            <option value="Energetic">Energetic</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="sleepHours">Sleep Hours</label>
+          <input type="number" class="form-control" id="sleepHours" formControlName="sleepHours" min="0" max="24">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="weather">Weather</label>
+          <select class="form-control" id="weather" formControlName="weather">
+            <option value="">Select weather</option>
+            <option value="Sunny">Sunny</option>
+            <option value="Cloudy">Cloudy</option>
+            <option value="Rainy">Rainy</option>
+            <option value="Snowy">Snowy</option>
+            <option value="Windy">Windy</option>
+            <option value="Stormy">Stormy</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="content">Content</label>
+      <textarea class="form-control" id="content" formControlName="content" rows="4"></textarea>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="image">Image (Optional)</label>
+      <input type="file" class="form-control" id="image" (change)="onFileSelected($event)" accept="image/*">
+    </div>
+
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="diaryForm.invalid">
+        {{ isEditing ? 'Update' : 'Create' }}
+      </button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">Cancel</button>
+    </div>
+  </form>
+
+  <h3>Your Diary Entries</h3>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Mood</th>
+          <th>Sleep Hours</th>
+          <th>Weather</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let diary of diaries">
+          <td>{{ diary.date | date }}</td>
+          <td>{{ diary.mood }}</td>
+          <td>{{ diary.sleepHours }}</td>
+          <td>{{ diary.weather }}</td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="editDiary(diary)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteDiary(diary._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">To-Do List</h3>
+        </div>
+        <div class="card-body">
+          <!-- Quick Add Form -->
+          <div class="input-group mb-4">
+            <input type="text" 
+                   class="form-control" 
+                   [(ngModel)]="newTodoTitle"
+                   placeholder="Add a new task..."
+                   (keyup.enter)="addTodo()">
+            <button class="btn btn-primary" 
+                    (click)="addTodo()"
+                    [disabled]="!newTodoTitle.trim()">
+              Add
+            </button>
+          </div>
+
+          <!-- Todo List -->
+          <ul class="list-group">
+            <li *ngFor="let todo of todos" 
+                class="list-group-item d-flex justify-content-between align-items-center"
+                [class.completed]="todo.completed">
+              <div class="d-flex align-items-center">
+                <input type="checkbox" 
+                       class="form-check-input me-2"
+                       [checked]="todo.completed"
+                       (change)="toggleTodo(todo)">
+                <span [class.text-decoration-line-through]="todo.completed">
+                  {{ todo.title }}
+                </span>
+              </div>
+              <button class="btn btn-sm btn-danger" 
+                      (click)="deleteTodo(todo._id as string)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

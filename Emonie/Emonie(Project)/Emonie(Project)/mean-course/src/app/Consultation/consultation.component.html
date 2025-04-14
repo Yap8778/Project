@@ -1,0 +1,86 @@
+<div class="container mt-4">
+  <h2>{{ isEditing ? 'Edit Consultation' : 'New Consultation' }}</h2>
+  
+  <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()" class="mb-4">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="type">Type</label>
+          <select class="form-control" id="type" formControlName="type">
+            <option value="">Select type</option>
+            <option value="Physical">Physical</option>
+            <option value="Virtual">Virtual</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="doctorId">Doctor ID</label>
+          <input type="text" class="form-control" id="doctorId" formControlName="doctorId">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input type="date" class="form-control" id="date" formControlName="date">
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="time">Time</label>
+          <input type="time" class="form-control" id="time" formControlName="time">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" formControlName="description" rows="4"></textarea>
+    </div>
+
+    <div class="mt-3">
+      <button type="submit" class="btn btn-primary" [disabled]="consultationForm.invalid">
+        {{ isEditing ? 'Update' : 'Create' }}
+      </button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">Cancel</button>
+    </div>
+  </form>
+
+  <h3>Your Consultations</h3>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Doctor ID</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let consultation of consultations">
+          <td>{{ consultation.type }}</td>
+          <td>{{ consultation.doctorId }}</td>
+          <td>{{ consultation.date | date }}</td>
+          <td>{{ consultation.time }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'bg-warning': consultation.status === 'Pending',
+              'bg-success': consultation.status === 'Confirmed',
+              'bg-danger': consultation.status === 'Cancelled'
+            }">
+              {{ consultation.status }}
+            </span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-primary me-2" (click)="editConsultation(consultation)">Edit</button>
+            <button class="btn btn-sm btn-danger" (click)="deleteConsultation(consultation._id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+
