@@ -50,9 +50,9 @@ The workflow includes dataset extraction, preprocessing, feature selection, and 
 ## 📊 **Accuracy Comparison**
 | Model | Features Used | Accuracy |
 |-------|--------------|----------|
-| All Features | 30 | *See console output* |
-| Mutual Information | Top 10 | *See console output* |
-| P-value | Top 10 | *See console output* |
+| All Features | 30 | *0.9474* |
+| Mutual Information | Top 10 | *0.9649* |
+| P-value | Top 10 | *0.9737* |
 
 ---
 
