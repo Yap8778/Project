@@ -1,162 +1,78 @@
-# Emonie - Personal Wellness Application
+# 🏥 Hospital Management System (Java)
 
-A modern web application built with Angular for managing personal wellness tasks, including a To-do list and Diary features.
-
-## Features
-
-- 📝 To-do List Management
-- 📅 Task Categories (Mindfulness, Exercise, Self Care)
-- 🎯 Quick Action Tasks
-- 📊 Task Filtering
-- 🎨 Modern UI with Material Design
-- ✨ Beautiful Animations and Transitions
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-- Node.js (v14.0.0 or higher)
-- npm (v6.0.0 or higher)
-- Angular CLI (v15.0.0 or higher)
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone [your-repository-url]
-cd mean-course
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Install required Angular Material packages:
-```bash
-ng add @angular/material
-npm install @fortawesome/angular-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
-```
-
-## Required Imports
-
-### Angular Material Imports
-```typescript
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-```
-
-### Font Awesome Imports
-```typescript
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faSave, faTimes, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-```
-
-### Angular Core Imports
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-```
-
-## Running the Application
-
-1. Start the development server:
-```bash
-ng serve
-```
-
-2. Open your browser and navigate to:
-```
-http://localhost:4200
-```
-
-## Project Structure
-
-```
-mean-course/
-├── src/
-│   ├── app/
-│   │   ├── To-do list/
-│   │   │   ├── todo.component.ts
-│   │   │   ├── todo.component.html
-│   │   │   ├── todo.component.css
-│   │   │   ├── todo.service.ts
-│   │   │   └── todo.model.ts
-│   │   └── ...
-│   ├── assets/
-│   └── ...
-├── package.json
-└── angular.json
-```
-
-## Styling Features
-
-### Button Styles
-- Gradient borders
-- Hover animations
-- Ripple effects
-- Custom checkbox design
-- Category badges
-- Icon animations
-
-### Color Scheme
-- Primary: #3498db
-- Secondary: #2980b9
-- Warning: #E53935
-- Background: #f8fafc
-
-## Development Guidelines
-
-1. **Component Structure**
-   - Use standalone components
-   - Implement proper TypeScript interfaces
-   - Follow Angular best practices
-
-2. **Styling**
-   - Use CSS custom properties for theming
-   - Implement responsive design
-   - Follow BEM naming convention
-
-3. **State Management**
-   - Use services for data management
-   - Implement proper error handling
-   - Follow reactive programming patterns
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Angular Material Not Loading**
-   - Ensure @angular/material is properly installed
-   - Check for proper imports in app.module.ts
-   - Verify theme is included in angular.json
-
-2. **Font Awesome Icons Not Showing**
-   - Verify FontAwesomeModule is imported
-   - Check icon imports in component
-   - Ensure proper icon registration
-
-3. **Styling Issues**
-   - Clear browser cache
-   - Check for CSS specificity conflicts
-   - Verify Material theme is properly loaded
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the repository or contact the development team.
+A modular **Java-based Hospital Management System** with both **console-based** and **JavaFX GUI** interfaces.  
+It manages patient information, admissions, appointments, bed allotments, medical reports, insurance claims, and more.
 
 ---
 
+## 📜 Overview
 
+The system is split into multiple **independent modules**, each responsible for a specific hospital operation.  
+It includes **text-based console modules** for backend logic, **JavaFX GUI modules** for user-friendly interaction, and **list management modules** for structured data handling.
+
+---
+
+## 📂 Modules
+
+### **Core Backend Modules**
+| File | Description |
+|------|-------------|
+| `PatientRegistration.java` | Handles new patient registrations and stores patient details. |
+| `PatientAppointment.java` | Manages scheduling of patient appointments with doctors. |
+| `PatientAdmission.java` | Records and manages hospital admission details. |
+| `PatientHospitalAdmission.java` | Tracks the hospital-specific admission workflow. |
+| `Inpatient.java` | Manages admitted (inpatient) details and services. |
+| `Outpatient.java` | Manages outpatient records and services. |
+| `BedAllotment.java` | Assigns beds to patients and manages bed availability. |
+| `MedicalReports.java` | Stores and retrieves patient medical reports. |
+| `InsuranceClaims.java` | Handles insurance claim requests and processing. |
+| `ClearAllTables.java` | Utility to clear all stored data tables (for resets). |
+| `connectdb.java` | Database connection utility for all modules. |
+
+---
+
+### **JavaFX GUI Modules**
+| File | Description |
+|------|-------------|
+| `RegistrationGUI.java` | GUI for patient registration. |
+| `AppointmentGUI.java` | GUI for scheduling and managing appointments. |
+| `AdmissionGUI.java` | GUI for handling patient admissions. |
+| `BedAllotmentFX.java` | GUI for bed assignment and tracking. |
+| `MedicalReportsFX.java` | GUI for managing patient medical reports. |
+| `InsuranceClaimsFX.java` | GUI for processing insurance claims. |
+| `HospitalMainMenu.java` | Main application menu to access all modules. |
+
+---
+
+### **List Management Modules**
+| File | Description |
+|------|-------------|
+| `PatientList.java` | Maintains a centralized list of all registered patients. |
+| `AdmissionList.java` | Stores and manages patient admission records. |
+| `AssignedInpatientList.java` | Tracks inpatients who have been assigned beds. |
+| `UnassignInpatientList.java` | Tracks inpatients awaiting bed assignment. |
+| `OutpatientList.java` | Maintains a list of outpatients. |
+| `ScheduleAppointmentList.java` | Stores and manages scheduled appointments. |
+
+---
+
+## 🛠 Features
+
+- 🧾 **Patient Registration** – Store patient details via console or GUI.
+- 📅 **Appointment Scheduling** – Manage doctor-patient appointments.
+- 🛏 **Bed Management** – Allocate and manage hospital beds.
+- 🏥 **Inpatient & Outpatient Handling** – Maintain detailed medical records.
+- 🩺 **Medical Report Management** – Store, retrieve, and update reports.
+- 💰 **Insurance Claim Processing** – Manage insurance requests and settlements.
+- 📋 **List-based Data Management** – Centralized and categorized patient record handling.
+- 🖥 **JavaFX GUI Support** – User-friendly interface for all major modules.
+- 🧹 **Data Reset Tool** – Clear all records when required.
+- 🔗 **Database Integration** – Centralized connection handling via `connectdb.java`.
+
+---
+
+## 🚀 How to Run
+
+### **1. Compile the Project**
+```bash
+javac *.java
