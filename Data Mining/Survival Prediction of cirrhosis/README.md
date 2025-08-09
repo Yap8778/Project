@@ -1,162 +1,78 @@
-# Emonie - Personal Wellness Application
+# 🩺 **Cirrhosis Patient Survival Prediction using Random Forest**
 
-A modern web application built with Angular for managing personal wellness tasks, including a To-do list and Diary features.
-
-## Features
-
-- 📝 To-do List Management
-- 📅 Task Categories (Mindfulness, Exercise, Self Care)
-- 🎯 Quick Action Tasks
-- 📊 Task Filtering
-- 🎨 Modern UI with Material Design
-- ✨ Beautiful Animations and Transitions
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-- Node.js (v14.0.0 or higher)
-- npm (v6.0.0 or higher)
-- Angular CLI (v15.0.0 or higher)
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone [your-repository-url]
-cd mean-course
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Install required Angular Material packages:
-```bash
-ng add @angular/material
-npm install @fortawesome/angular-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
-```
-
-## Required Imports
-
-### Angular Material Imports
-```typescript
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-```
-
-### Font Awesome Imports
-```typescript
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faSave, faTimes, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-```
-
-### Angular Core Imports
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-```
-
-## Running the Application
-
-1. Start the development server:
-```bash
-ng serve
-```
-
-2. Open your browser and navigate to:
-```
-http://localhost:4200
-```
-
-## Project Structure
-
-```
-mean-course/
-├── src/
-│   ├── app/
-│   │   ├── To-do list/
-│   │   │   ├── todo.component.ts
-│   │   │   ├── todo.component.html
-│   │   │   ├── todo.component.css
-│   │   │   ├── todo.service.ts
-│   │   │   └── todo.model.ts
-│   │   └── ...
-│   ├── assets/
-│   └── ...
-├── package.json
-└── angular.json
-```
-
-## Styling Features
-
-### Button Styles
-- Gradient borders
-- Hover animations
-- Ripple effects
-- Custom checkbox design
-- Category badges
-- Icon animations
-
-### Color Scheme
-- Primary: #3498db
-- Secondary: #2980b9
-- Warning: #E53935
-- Background: #f8fafc
-
-## Development Guidelines
-
-1. **Component Structure**
-   - Use standalone components
-   - Implement proper TypeScript interfaces
-   - Follow Angular best practices
-
-2. **Styling**
-   - Use CSS custom properties for theming
-   - Implement responsive design
-   - Follow BEM naming convention
-
-3. **State Management**
-   - Use services for data management
-   - Implement proper error handling
-   - Follow reactive programming patterns
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Angular Material Not Loading**
-   - Ensure @angular/material is properly installed
-   - Check for proper imports in app.module.ts
-   - Verify theme is included in angular.json
-
-2. **Font Awesome Icons Not Showing**
-   - Verify FontAwesomeModule is imported
-   - Check icon imports in component
-   - Ensure proper icon registration
-
-3. **Styling Issues**
-   - Clear browser cache
-   - Check for CSS specificity conflicts
-   - Verify Material theme is properly loaded
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the repository or contact the development team.
+## 📖 **Project Overview**
+This project applies **data mining and machine learning** techniques to predict the survival status of patients with **liver cirrhosis**.  
+Using clinical, demographic, and histological data, the goal is to identify key factors influencing patient outcomes and improve predictive accuracy through **feature selection**.
 
 ---
 
+## 📂 **Dataset Overview**
+- **Source:** [UCI Cirrhosis Patient Survival Prediction Dataset](https://archive.ics.uci.edu/dataset/878/cirrhosis+patient+survival+prediction+dataset-1)
+- **Instances:** 418 patients  
+- **Attributes:** 20 (ID, clinical indicators, complications, histologic stage)  
+- **Target Variable:** `Status` –  
+  - C = Censored (alive at study end)  
+  - CL = Censored due to liver transplant  
+  - D = Death  
+- **Example Features:** Age, Sex, Ascites, Hepatomegaly, Platelets, Bilirubin, Stage, etc.
 
+---
+
+## 🛠 **Data Preprocessing**
+### 1️⃣ Missing Value Handling
+- Removed patients with >45% missing values (mainly missing drug data – MNAR type).
+- Imputation strategy:  
+  - **Median**: Cholesterol, Triglycerides, Copper (right-skewed distributions)  
+  - **Mean**: Platelets (approx. normal distribution)
+
+### 2️⃣ Feature Transformation
+- Converted `N_Days` to `Age` in years.
+- One-Hot Encoding for categorical variables (e.g., `Sex`, `Drug`, `Status`).
+
+---
+
+## 📊 **Exploratory Data Analysis**
+- **Age vs Stage** → Significant difference (p=0.01857) between early (Stage 1–2) and late (Stage 3–4) stages.  
+- **Platelets vs Stage** → Lower platelet counts in advanced stages.  
+- **Drug Usage Trend** → D-penicillamine more common in early stages; placebo more common later.  
+- **Complications vs Stage** → Hepatomegaly & Spiders increase early; Ascites & Edema increase late.
+
+---
+
+## 🤖 **Model Development**
+### Algorithm: **Random Forest Classifier**
+- Feature selection via **p-value backward elimination**.  
+- Two models compared:
+  1. **With Feature Selection** – Removed high p-value features (Cholesterol, Platelets, Triglycerides, Spiders).
+  2. **Without Feature Selection** – Used all features.
+
+### Parameters:
+- `n_estimators`: 500 (feature selection phase), 100 (final model)  
+- `max_depth`: 20 (feature selection phase)  
+- `class_weight`: "balanced"  
+- Train/Test Split: 70/30
+
+---
+
+## 📈 **Results**
+| Model | Features Used | Accuracy |
+|-------|--------------|----------|
+| With Feature Selection | Reduced set | **82.98%** |
+| Without Feature Selection | All features | **81.91%** |
+
+**Key Insight:** Even a ~1% accuracy improvement suggests that removing noisy, non-significant features helps model performance and generalization.
+
+---
+
+## ⚙ **Technologies Used**
+- 🐍 Python  
+- 📦 pandas, numpy, scikit-learn, scipy  
+- 📊 matplotlib, seaborn (for visualization)
+
+---
+
+## 🚀 **How to Run**
+1. Clone the repository.  
+2. Install dependencies:
+   ```bash
+   pip install pandas numpy scikit-learn scipy matplotlib seaborn
