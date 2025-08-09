@@ -1,162 +1,57 @@
-# Emonie - Personal Wellness Application
+# 📊 **Diabetic Patients Medication & Readmission Analysis**
 
-A modern web application built with Angular for managing personal wellness tasks, including a To-do list and Diary features.
-
-## Features
-
-- 📝 To-do List Management
-- 📅 Task Categories (Mindfulness, Exercise, Self Care)
-- 🎯 Quick Action Tasks
-- 📊 Task Filtering
-- 🎨 Modern UI with Material Design
-- ✨ Beautiful Animations and Transitions
-
-## Prerequisites
-
-Before you begin, ensure you have the following installed:
-- Node.js (v14.0.0 or higher)
-- npm (v6.0.0 or higher)
-- Angular CLI (v15.0.0 or higher)
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone [your-repository-url]
-cd mean-course
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Install required Angular Material packages:
-```bash
-ng add @angular/material
-npm install @fortawesome/angular-fontawesome @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons
-```
-
-## Required Imports
-
-### Angular Material Imports
-```typescript
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-```
-
-### Font Awesome Imports
-```typescript
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faSave, faTimes, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-```
-
-### Angular Core Imports
-```typescript
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-```
-
-## Running the Application
-
-1. Start the development server:
-```bash
-ng serve
-```
-
-2. Open your browser and navigate to:
-```
-http://localhost:4200
-```
-
-## Project Structure
-
-```
-mean-course/
-├── src/
-│   ├── app/
-│   │   ├── To-do list/
-│   │   │   ├── todo.component.ts
-│   │   │   ├── todo.component.html
-│   │   │   ├── todo.component.css
-│   │   │   ├── todo.service.ts
-│   │   │   └── todo.model.ts
-│   │   └── ...
-│   ├── assets/
-│   └── ...
-├── package.json
-└── angular.json
-```
-
-## Styling Features
-
-### Button Styles
-- Gradient borders
-- Hover animations
-- Ripple effects
-- Custom checkbox design
-- Category badges
-- Icon animations
-
-### Color Scheme
-- Primary: #3498db
-- Secondary: #2980b9
-- Warning: #E53935
-- Background: #f8fafc
-
-## Development Guidelines
-
-1. **Component Structure**
-   - Use standalone components
-   - Implement proper TypeScript interfaces
-   - Follow Angular best practices
-
-2. **Styling**
-   - Use CSS custom properties for theming
-   - Implement responsive design
-   - Follow BEM naming convention
-
-3. **State Management**
-   - Use services for data management
-   - Implement proper error handling
-   - Follow reactive programming patterns
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Angular Material Not Loading**
-   - Ensure @angular/material is properly installed
-   - Check for proper imports in app.module.ts
-   - Verify theme is included in angular.json
-
-2. **Font Awesome Icons Not Showing**
-   - Verify FontAwesomeModule is imported
-   - Check icon imports in component
-   - Ensure proper icon registration
-
-3. **Styling Issues**
-   - Clear browser cache
-   - Check for CSS specificity conflicts
-   - Verify Material theme is properly loaded
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a new Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please open an issue in the repository or contact the development team.
+## 📖 **Project Overview**
+This project analyzes the relationship between medication strategies (including medication types, combinations, and change status) and hospital readmission rates among diabetic patients across different age groups.  
+The analysis is based on the **diabetic_data.csv** dataset, which contains 101,767 patient records and 50 attributes, including admission details, diagnoses, medication usage, and readmission status.
 
 ---
 
+## 📂 **Dataset Information**
+- 📄 **File Name:** diabetic_data.csv  
+- 📦 **Rows:** 101,767  
+- 📊 **Columns:** 50  
+- 💾 **File Size:** 18.7 MB  
+- 📌 **Content:** Medical records of diabetic patients, covering age groups, medications, diagnoses, hospital admissions, and readmission status.
 
+---
+
+## 🛠 **Data Preprocessing Steps**
+1. 🗑 **Column Reduction** – Removed unrelated attributes (e.g., patient ID, race, gender) to focus on medication, age, and readmission factors.
+2. 🔍 **Missing Value Check** – Verified and prepared for imputation if needed.
+3. ⚠ **Logical Error Detection** – Ensured data consistency (e.g., no patient marked as `diabetesMed=No` while taking medications).
+4. 📝 **Spelling & Typo Correction** – Fixed inconsistent categorical values to avoid incorrect grouping.
+5. 🔢 **One-Hot Encoding** – Encoded medication usage, change status, diabetesMed, and readmission columns for quantitative analysis.  
+   - Readmission `<30` and `>30` both encoded as `1` for analysis.
+6. 💾 **Export** – Saved the cleaned dataset as `encoded_diabetic_data.csv`.
+
+---
+
+## 🎯 **Objectives**
+1. 💊 Determine the most commonly used medication in each age group.  
+2. 📈 Identify age groups with the highest hospital readmission rates.  
+3. 🔄 Analyze medication change rates across different age groups.  
+4. 🧮 Calculate diabetes medication usage rates in each age group.
+
+---
+
+## 📊 **Implementation**
+- **Objective 1** – Grouped data by age and counted usage frequency for each medication.  
+- **Objective 2** – Calculated readmission rate = (Total Readmitted Patients ÷ Total Patients) × 100.  
+- **Objective 3** – Counted patients with `change_encoded = 1` in each age group.  
+- **Objective 4** – Counted patients with `diabetesMed_encoded = 1` and calculated percentage.  
+
+Each objective's results were saved as CSV files:
+- `Objective_1.csv`  
+- `Objective_2.csv`  
+- `Objective_3.csv`  
+- `Objective_4.csv`  
+
+---
+
+## 💡 **Reflection**
+- Proper preprocessing ensures accuracy in drug usage and readmission statistics.  
+- Without correcting typos, medication counts would be split into incorrect categories.  
+- Incorrect readmission encoding could lead to wrong identification of high-risk age groups.  
+- Missing values and logical errors, if unhandled, would distort medication change and usage rates, affecting medical decisions and drug supply strategies.  
+
+---
